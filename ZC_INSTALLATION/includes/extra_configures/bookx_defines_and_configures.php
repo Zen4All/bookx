@@ -24,3 +24,22 @@
   define('BOOKX_LAYOUT_FLAG_OPTION_DONT_DISPLAY', 0);
   define('BOOKX_LAYOUT_FLAG_OPTION_DISPLAY_IF_NOT_EMPTY', 1);
   define('BOOKX_LAYOUT_FLAG_OPTION_ALWAYS_DISPLAY', 2);
+  
+  /**
+   * @since v1.0.0
+   */
+  define('SEE_MORE', 'See More');
+  define('BOOKX_SHOW_ALPHAINDEX_ON_FILTER_ALL', true);
+  define('BOOKX_TRUNCATE_DESCRIPTION_LENGHT', 350);
+  define('BOOKX_BOOKINFO_RELATED_AUTHOR_BOOKS_LIMIT', 3);
+  
+  define('BOOKX_AUTHOR_DEFAULT_IMAGE', 'author_noimage.jpg');
+  
+  define('BOOKX_PUBLISHER_DEFAULT_IMAGE', PRODUCTS_IMAGE_NO_IMAGE); 
+  define('BOOKX_GENRES_DEFAULT_IMAGE', PRODUCTS_IMAGE_NO_IMAGE);
+  
+  /**
+   * @todo stuff to be removed. Just placing it here to move along
+   */
+  
+  define('BOOKX_USES_CEON_URI_MODULE', false);

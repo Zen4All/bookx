@@ -35,39 +35,39 @@
 		<script type="text/javascript">
 		<!--
 		function handleInStockOnlyCheckbox() {
-			var n = window.location.href.indexOf('&bookx_authors_list_all=');
+			var n = window.location.href.indexOf('&la=');
 			var listOutOfStock = authorsListOnlyStockedCheckbox.checked;
-			var newGetParameter = (listOutOfStock ? '&bookx_authors_list_all=true' : '');
+			var newGetParameter = (listOutOfStock ? '&la=true' : '');
 			if (0 > n) {
 				window.location.href = window.location.href + newGetParameter;
 			} else {
-				window.location.href = window.location.href.replace('&bookx_authors_list_all=true', newGetParameter);
+				window.location.href = window.location.href.replace('&la=true', newGetParameter);
 			}
 		}
 		-->
 		</script>
 		<div id="authorsListOnlyStockedCheckboxContainer">
-			<label><input id="authorsListOnlyStockedCheckbox" type="checkbox" <?php echo ( isset($_GET['bookx_authors_list_all']) && $_GET['bookx_authors_list_all'] ? 'checked' : ''); ?> onClick="handleInStockOnlyCheckbox()" /> <?php echo TEXT_BOOKX_AUTHOR_LIST_STOCKCHECKBOX_LABEL; ?></label>
+			<label><input id="authorsListOnlyStockedCheckbox" type="checkbox" <?php echo ( isset($_GET['la']) && $_GET['la'] ? 'checked' : ''); ?> onClick="handleInStockOnlyCheckbox()" /> <?php echo TEXT_BOOKX_AUTHOR_LIST_STOCKCHECKBOX_LABEL; ?></label>
 		</div>
 <?php } ?>
 
 <h1 id="authorListHeading"><?php echo TEXT_BOOKX_AUTHOR_LIST_TITLE; ?></h1>
-<table id="bookxAuthorListingTable">
 
-<?php
-	foreach ($bookx_authors_listing_split_array as $author) {
-		echo '<tr>';
-		echo '<td class="bookxAuthorListingImageCell">' . zen_image($author['author_image'], '', BOOKX_AUTHOR_LISTING_IMAGE_MAX_WIDTH, BOOKX_AUTHOR_LISTING_IMAGE_MAX_HEIGHT) . '</td>';
-		echo '<td class="bookxAuthorListingInfoCell"><span class="bookxAuthorName">' . $author['author_name'] . '</span>' . (!empty($author['author_types']) ? ' <span class="bookxAuthorType">' . $author['author_types'] . '<span>': '')
-		     . (!empty($author['author_description']) ? '<div class="bookxAuthorDescription">' . $author['author_description'] . '</div>' : '')
-		     . (!empty($author['author_url']) ? '<div class="bookxAuthorUrl"><a href="http://' . $author['author_url'] . '" target="_author_site">' . BOOKX_URL_LINK_TEXT_AUTHOR . '</a></div>' : '')
-		     . ' <a href="' .  zen_href_link(FILENAME_DEFAULT, '&typefilter=bookx&bookx_author_id=' . $author['bookx_author_id']) . '" class="bookx_searchlink">' . sprintf(TEXT_BOOKX_LIST_PRODUCTS_BY_AUTHOR, $author['author_name']) . '</a>';
-		echo '</td></tr>';
+<?php echo tpl_bookx_alphafilter_all($index, FILENAME_BOOKX_AUTHORS_LIST); ?>
 
-	}
-?>
+<div id="bookxAuthorListingTable" class="bookxFilterListAll">
+    <?php
+    foreach ($bookx_authors_listing_split_array as $author) {
 
-</table>
+        echo '<div class="row">' . zen_image($author['author_image'], $author['author_name'], BOOKX_AUTHOR_LISTING_IMAGE_MAX_WIDTH, BOOKX_AUTHOR_LISTING_IMAGE_MAX_HEIGHT, 'class="bookxAllListingImage"');
+        echo '<h3 class="bookxAllListingInfo">' . $author['author_name'] . '' . (!empty($author['author_types']) ? ' <span class="bookxAuthorType">' . $author['author_types'] . '<span>' : '') . '</h3>'
+        . (!empty($author['author_description']) ? '<p class="bookxAllListingDescription">' . bookx_truncate_paragraph($author['author_description'], BOOKX_TRUNCATE_DESCRIPTION_LENGHT, SEE_MORE , true) . '</p>' : '')
+        . (!empty($author['author_url']) ? '<div class="bookxAuthorUrl"><a href="http://' . $author['author_url'] . '" target="_author_site">' . BOOKX_URL_LINK_TEXT_AUTHOR . '</a></div>' : '')
+        . ' <a href="' . zen_href_link(FILENAME_DEFAULT, '&typefilter=bookx&bookx_author_id=' . $author['bookx_author_id']) . '" class="bookx_searchlink">' . sprintf(TEXT_BOOKX_LIST_PRODUCTS_BY_AUTHOR, $author['author_name']) . '</a>';
+        echo '</div>';
+    }
+    ?>
+</div>
 
 <?php if ( ($bookx_authors_listing_split->number_of_rows > 0) && $bookx_authors_listing_split->number_of_pages > 1 && ((PREV_NEXT_BAR_LOCATION == '2') || (PREV_NEXT_BAR_LOCATION == '3')) ) {
 ?>
